@@ -24,6 +24,7 @@
     "@near-wallet-selector/modal-ui": "^8.9.13",
     "@near-wallet-selector/my-near-wallet": "^8.9.13",
     "@near-wallet-selector/sender": "^8.9.13",
+    "@radix-ui/react-label": "^2.1.0",
     "@vkruglikov/react-telegram-web-app": "^2.1.9",
     "@wagmi/core": "2.13.8",
     "@web3modal/wagmi": "^5.1.10",

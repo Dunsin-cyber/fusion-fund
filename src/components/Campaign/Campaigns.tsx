@@ -51,7 +51,7 @@ function Campaigns() {
           >
             <p>Ongoing</p>
             <p className=" px-1 py-[1/2] rounded-3xl text-white font-semibold">
-              0
+              2
             </p>
           </div>
           <div
@@ -79,7 +79,7 @@ function Campaigns() {
 
 export default Campaigns;
 
-const CampaignCard = ({ title, image, progress, daysLeft, rewards }) => {
+export const CampaignCard = ({ title, image, progress, daysLeft, rewards }) => {
   return (
     <div className="rounded-lg shadow-lg p-4 mb-4 w-full">
       {/* Campaign Header */}

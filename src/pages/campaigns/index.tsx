@@ -14,14 +14,6 @@ function index() {
   const [impactOccurred] = useHapticFeedback();
   return (
     <Background>
-      <div
-        onClick={() => {
-          impactOccurred("medium");
-          router.push("/");
-        }}
-      >
-        <IoIosArrowBack color="white" />
-      </div>
       <div className="flex flex-col space-y-10">
         <Header />
         <Task />
