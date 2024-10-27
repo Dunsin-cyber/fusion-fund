@@ -1,6 +1,7 @@
-import Link from 'next/link';
+import React from "react";
+import Link from "next/link";
 
-import styles from '@/styles/app.module.css';
+import styles from "@/styles/app.module.css";
 
 export const Cards = () => {
   return (
@@ -8,11 +9,11 @@ export const Cards = () => {
       <Link
         href="https://docs.near.org/build/web3-apps/quickstart"
         className={styles.card}
-        target='_blank'
+        target="_blank"
         rel="noopener noreferrer"
       >
         <h2>
-          Near Docs <span>-&gt;</span>
+          Near Docs ooo <span>-&gt;</span>
         </h2>
         <p>Learn how this application works, and what you can build on Near.</p>
       </Link>
