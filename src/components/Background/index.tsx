@@ -8,12 +8,18 @@ import FooterNav from "@/components/Footer";
 import Drawer from "@/components/custom/Drawer";
 import { useClient } from "@/context";
 import CreateCampaignDrawer from "@/components/Profile/CreateCampaignDrawer";
+import CampaignDetailDrawer from "@/components/Campaign/CampaignDetailDrawer";
 
 export default function Home({ children }) {
   const [impactOccurred] = useHapticFeedback();
   const router = useRouter();
-  const { drawerTitle, drawerBody, drawerIsOpen, isCreateCampOpen } =
-    useClient();
+  const {
+    drawerTitle,
+    drawerBody,
+    drawerIsOpen,
+    isCreateCampOpen,
+    isCampDetailOpen,
+  } = useClient();
 
   const onClose = () => {
     // setIsOpen(!false);
@@ -29,6 +35,7 @@ export default function Home({ children }) {
         drawerBody={drawerBody}
       />
       <CreateCampaignDrawer isCreateCampOpen={isCreateCampOpen} />
+      <CampaignDetailDrawer isCampDetailOpen={isCampDetailOpen} />
       <FooterNav />
     </div>
   );

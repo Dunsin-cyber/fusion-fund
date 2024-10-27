@@ -17,6 +17,8 @@ const UserContext = React.createContext<{
   passDrawerParams: (data: DrawerParam) => {} | any;
   isCreateCampOpen: any;
   setIsCreateCampOpen: any;
+  isCampDetailOpen: any;
+  setIsCampDetailOpen: any;
 }>({
   setDrawerTitle: undefined,
   drawerTitle: "",
@@ -28,6 +30,8 @@ const UserContext = React.createContext<{
   passDrawerParams: undefined,
   isCreateCampOpen: false,
   setIsCreateCampOpen: undefined,
+  isCampDetailOpen: undefined,
+  setIsCampDetailOpen: undefined,
 });
 
 export const useUserContext = () => {
@@ -38,6 +42,7 @@ export const useUserContext = () => {
   const [drawerBody, setDrawerBody] = useState("");
   const [drawerIsOpen, setDrawerIsOpen] = useState(false);
   const [isCreateCampOpen, setIsCreateCampOpen] = useState(false);
+  const [isCampDetailOpen, setIsCampDetailOpen] = useState(false);
 
   const closeDrawer = () => {
     setDrawerTitle("");
@@ -62,6 +67,8 @@ export const useUserContext = () => {
     passDrawerParams,
     isCreateCampOpen,
     setIsCreateCampOpen,
+    isCampDetailOpen,
+    setIsCampDetailOpen,
   };
 };
 

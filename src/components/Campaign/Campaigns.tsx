@@ -3,6 +3,7 @@ import { FaTasks } from "react-icons/fa";
 import { TracingBeam } from "@/components/ui/tracing-beam";
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
+import { useClient } from "@/context";
 
 function Campaigns() {
   const [active, setActive] = React.useState(true);
@@ -80,8 +81,12 @@ function Campaigns() {
 export default Campaigns;
 
 export const CampaignCard = ({ title, image, progress, daysLeft, rewards }) => {
+  const { setIsCampDetailOpen } = useClient();
   return (
-    <div className="rounded-lg shadow-lg p-4 mb-4 w-full">
+    <div
+      onClick={() => setIsCampDetailOpen(true)}
+      className="rounded-lg shadow-lg p-4 mb-4 w-full"
+    >
       {/* Campaign Header */}
       <div className="relative w-full h-40 rounded-lg overflow-hidden">
         {/* Image */}
