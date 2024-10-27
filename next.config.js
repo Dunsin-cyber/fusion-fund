@@ -7,6 +7,9 @@ const nextConfig = {
     config.resolve.alias["@"] = require("path").resolve(__dirname, "src");
     return config;
   },
+  images: {
+    domains: ["images.unsplash.com"],
+  },
 
   experimental: {
     optimizePackageImports: ["@chakra-ui/react"],

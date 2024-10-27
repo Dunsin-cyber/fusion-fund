@@ -14,10 +14,10 @@ export default function Home() {
   const router = useRouter();
 
   return (
-    <div>
+    <div className="relative h-[70rem]">
       <ShootingStars />
       <StarsBackground />
-      <div className="flex flex-col space-y-4 justify-center items-center mt-[30vh] ">
+      <div className="flex flex-col space-y-4 justify-center items-center pt-[40vh]">
         <TextGenerateEffect words={words} />
         <Button
           title="Get Started"
