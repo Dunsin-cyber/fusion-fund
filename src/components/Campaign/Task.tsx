@@ -6,10 +6,20 @@ import { useClient } from "@/context";
 function Campaigns() {
   const [isOpen, setIsOpen] = React.useState(false);
 
-  const {} = useClient();
+  const { passDrawerParams, setDrawerIsOpen, setDrawerBody, setDrawerTitle } =
+    useClient();
 
-  const onClose = () => {
-    setIsOpen(!false);
+  const handleConnectEmail = () => {
+    // console.log("clicked");
+    // setDrawerIsOpen(true);
+    // setDrawerBody(
+    //   "You can easily create a new account by using your email or connecting a wallet. Choose the option that suits you best and get started quickly!"
+    // );
+    // setDrawerTitle("Set up your account");
+    passDrawerParams({
+      title: "Set up your account",
+      body: "You can easily create a new account by using your email or connecting a wallet. Choose the option that suits you best and get started quickly!",
+    });
   };
   return (
     <div className="my-2 px-3">
@@ -23,7 +33,7 @@ function Campaigns() {
         <div className="space-y-6 mt-2">
           {/* task */}
           <div
-            onClick={() => setIsOpen(true)}
+            onClick={handleConnectEmail}
             className="rounded-lg border border-blue-800 border-5 flex justify-between items-center py-3 px-5"
           >
             <CiFlag1 color="white" />

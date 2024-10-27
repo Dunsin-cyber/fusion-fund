@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import {
   DrawerBackdrop,
   DrawerBody,
-  DrawerCloseTrigger,
   DrawerContent,
   DrawerFooter,
   DrawerHeader,
@@ -10,14 +9,15 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import { useClient } from "@/context";
 
 const Drawer = ({
   isOpen,
   handleSubmit = () => {},
-  closeDrawer,
   drawerTitle,
   drawerBody,
 }) => {
+  const { closeDrawer } = useClient();
   return (
     <DrawerRoot
       size="lg"
@@ -33,14 +33,16 @@ const Drawer = ({
       </DrawerTrigger>
       <DrawerContent roundedTop={"25"} roundedBottom={undefined}>
         <DrawerHeader>
-          <DrawerTitle>{drawerTitle}</DrawerTitle>
+          <DrawerTitle fontSize={"2xl"}>{drawerTitle}</DrawerTitle>
         </DrawerHeader>
         <DrawerBody>{drawerBody}</DrawerBody>
-        <DrawerFooter>
+        <DrawerFooter mb={6}>
           <Button variant="outline" onClick={closeDrawer}>
             Cancel
           </Button>
-          <Button onClick={handleSubmit}>Save</Button>
+          <Button bgColor="blue.800" px={4} onClick={handleSubmit}>
+            Save
+          </Button>
         </DrawerFooter>
       </DrawerContent>
     </DrawerRoot>

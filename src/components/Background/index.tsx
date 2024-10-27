@@ -11,7 +11,7 @@ import { useClient } from "@/context";
 export default function Home({ children }) {
   const [impactOccurred] = useHapticFeedback();
   const router = useRouter();
-  const { drawerTitle, drawerBody, closeDrawer, drawerIsOpen } = useClient();
+  const { drawerTitle, drawerBody, drawerIsOpen } = useClient();
 
   const onClose = () => {
     // setIsOpen(!false);
@@ -20,10 +20,9 @@ export default function Home({ children }) {
     <div className="relative h-[screen]">
       <ShootingStars />
       <StarsBackground />
-      <div className="mx-1 my-[5%]">{children}</div>
+      <div className="relative mx-1 my-[5%] z-30 ">{children}</div>
       <Drawer
         isOpen={drawerIsOpen}
-        closeDrawer={closeDrawer}
         drawerTitle={drawerTitle}
         drawerBody={drawerBody}
       />

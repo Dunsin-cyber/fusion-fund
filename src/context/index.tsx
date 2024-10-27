@@ -1,6 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
+interface DrawerParam {
+  title: string;
+  body: string;
+}
+
 const UserContext = React.createContext<{
   setDrawerTitle: any;
   drawerTitle: string;
@@ -8,6 +13,8 @@ const UserContext = React.createContext<{
   setDrawerBody: any;
   closeDrawer: any;
   drawerIsOpen: boolean;
+  setDrawerIsOpen: any;
+  passDrawerParams: (data: DrawerParam) => {} | any;
 }>({
   setDrawerTitle: undefined,
   drawerTitle: "",
@@ -15,6 +22,8 @@ const UserContext = React.createContext<{
   setDrawerBody: undefined,
   closeDrawer: undefined,
   drawerIsOpen: false,
+  setDrawerIsOpen: undefined,
+  passDrawerParams: undefined,
 });
 
 export const useUserContext = () => {
@@ -31,6 +40,12 @@ export const useUserContext = () => {
     setDrawerIsOpen(false);
   };
 
+  const passDrawerParams = (data: DrawerParam) => {
+    setDrawerTitle(data.title);
+    setDrawerBody(data.body);
+    setDrawerIsOpen(true);
+  };
+
   return {
     drawerTitle,
     setDrawerTitle,
@@ -38,6 +53,8 @@ export const useUserContext = () => {
     setDrawerBody,
     closeDrawer,
     drawerIsOpen,
+    setDrawerIsOpen,
+    passDrawerParams,
   };
 };
 
