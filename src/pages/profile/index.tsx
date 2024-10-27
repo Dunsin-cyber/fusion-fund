@@ -6,7 +6,7 @@ import Profile from "@/components/Profile";
 import Stat from "@/components/Profile/Stat";
 import CreateCamp from "@/components/Profile/MyCampaign";
 
-function index() {
+function Index() {
   const router = useRouter();
   const [impactOccurred] = useHapticFeedback();
   return (
@@ -20,4 +20,4 @@ function index() {
   );
 }
 
-export default index;
+export default Index;

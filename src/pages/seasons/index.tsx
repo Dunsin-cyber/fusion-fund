@@ -9,7 +9,7 @@ import Background from "@/components/Background";
 import Task from "@/components/Campaign/Task";
 import Campaigns from "@/components/Campaign/Campaigns";
 
-function index() {
+function Index() {
   const router = useRouter();
   const [impactOccurred] = useHapticFeedback();
   return (
@@ -19,4 +19,4 @@ function index() {
   );
 }
 
-export default index;
+export default Index;
