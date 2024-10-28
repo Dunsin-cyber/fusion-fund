@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 // import Image from "next/image";
 // import Logo from "./logo.png";
 import { MdOutlineVerified } from "react-icons/md";
 import { ProgressBar, ProgressRoot } from "@/components/ui/progress";
+import { NearContext } from "@/wallets/near";
 
 function Profile() {
+  const { signedAccountId } = useContext(NearContext);
+
   return (
     <div>
       {/* first card */}
@@ -14,10 +17,12 @@ function Profile() {
             <img src="/logo.png" alt="logo" className="w-40 h-40 " />
           </div>
 
-          <span className="space-x-3 flex items-center ">
-            <p>dunsin.testnet</p>
-            <MdOutlineVerified />
-          </span>
+          {signedAccountId && (
+            <span className="space-x-3 flex items-center ">
+              <p>{signedAccountId}</p>
+              <MdOutlineVerified />
+            </span>
+          )}
         </div>
         {/* progress */}
         <div className="space-y-1">

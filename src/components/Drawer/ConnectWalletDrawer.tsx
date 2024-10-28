@@ -1,21 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button } from "@/components/ui/button";
 import {
   DrawerBackdrop,
   DrawerBody,
   DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
   DrawerRoot,
-  DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { useClient } from "@/context";
 import { FaWallet } from "react-icons/fa";
 import { MdOutlineCancel } from "react-icons/md";
+import { NearContext } from "@/wallets/near";
 
 const ConnectWalletDrawer = ({ connectWallet }) => {
   const { closeDrawer } = useClient();
+
   return (
     <DrawerRoot
       size="lg"
@@ -42,6 +41,14 @@ export default ConnectWalletDrawer;
 
 const ConnectOptions = () => {
   const { setConnectWallet } = useClient();
+  const { signedAccountId, wallet } = useContext(NearContext);
+
+  const handleAuth = () => {
+    if (wallet) {
+      setConnectWallet(false);
+      wallet.signIn();
+    }
+  };
 
   return (
     <div className="flex flex-col items-center justify-center text-white p-4 pb-8">
@@ -60,7 +67,10 @@ const ConnectOptions = () => {
         </button>
 
         {/* Connect with Wallet */}
-        <button className="flex items-center justify-center shadow-[0_0_0_3px_#000000_inset] px-6 py-2 bg-transparent border border-black dark:border-white dark:text-white text-black rounded-lg font-bold transform hover:-translate-y-1 transition duration-400">
+        <button
+          onClick={handleAuth}
+          className="flex items-center justify-center shadow-[0_0_0_3px_#000000_inset] px-6 py-2 bg-transparent border border-black dark:border-white dark:text-white text-black rounded-lg font-bold transform hover:-translate-y-1 transition duration-400"
+        >
           <FaWallet className="mr-2" />
           Connect with Wallet
         </button>

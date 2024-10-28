@@ -1,12 +1,127 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FaTasks } from "react-icons/fa";
 import { TracingBeam } from "@/components/ui/tracing-beam";
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
 import { useClient } from "@/context";
+import { NearContext } from "@/wallets/near";
+import { FusionFundContract } from "@/config";
+import toast from "react-hot-toast";
 
 function Campaigns() {
   const [active, setActive] = React.useState(true);
+  const { wallet, signedAccountId } = React.useContext(NearContext);
+
+  const initContract = async () => {
+    try {
+      //  setLoading(true);
+      const newAcc = await wallet.callMethod({
+        contractId: FusionFundContract,
+        method: "init",
+        args: {},
+      });
+      if (newAcc) {
+        console.log(newAcc);
+        toast.success("Initialized Account Successfully");
+        return;
+      }
+    } catch (err) {
+      toast.error(err.message);
+      console.log(err);
+    }
+  };
+
+  const createCampaign = async () => {
+    try {
+      //  setLoading(true);
+      const newAcc = await wallet.callMethod({
+        contractId: FusionFundContract,
+        method: "create_campaign",
+        args: {
+          end_time: "3000000",
+          title: "first ever camp",
+          description: "dec oo",
+          images: "./pic.png",
+          amount_required: Number(30000).toString(),
+          campaign_code: "XC#$$",
+        },
+      });
+      if (newAcc) {
+        console.log(newAcc);
+        toast.success("camp created");
+        return;
+      }
+    } catch (err) {
+      toast.error(err.message);
+      console.log(err);
+    }
+  };
+
+  const createProfile = async () => {
+    try {
+      //  setLoading(true);
+      const newAcc = await wallet.callMethod({
+        contractId: FusionFundContract,
+        method: "create_profile",
+        args: {
+          username: "TJ",
+          bio: JSON.stringify("fineboy"),
+        },
+      });
+      if (newAcc) {
+        console.log(newAcc);
+        toast.success("user created");
+        return;
+      }
+    } catch (err) {
+      toast.error(err.message);
+      console.log(err);
+    }
+  };
+
+  const getProfile = async () => {
+    try {
+      //  setLoading(true);
+      const newAcc = await wallet.viewMethod({
+        contractId: FusionFundContract,
+        method: "get_user_profile",
+        args: {
+          user_id: signedAccountId,
+        },
+      });
+      if (newAcc) {
+        console.log(newAcc);
+        //  toast.success("user created");
+        return;
+      }
+    } catch (err) {
+      toast.error(err.message);
+      console.log(err);
+    }
+  };
+  const getCampaigns = async () => {
+    try {
+      if (wallet) {
+        const data = await wallet?.viewMethod({
+          contractId: FusionFundContract,
+          method: "get_all_campaigns",
+          args: {},
+        });
+
+        console.log("campaigns", data);
+      }
+    } catch (err) {
+      console.log("ERR", err);
+    }
+  };
+
+  useEffect(() => {
+    // initContract();
+    // createCampaign();
+    // createProfile();
+    getProfile();
+    getCampaigns();
+  }, [wallet]);
 
   const campaigns = [
     {
@@ -82,6 +197,7 @@ export default Campaigns;
 
 export const CampaignCard = ({ title, image, progress, daysLeft, rewards }) => {
   const { setIsCampDetailOpen } = useClient();
+
   return (
     <div
       onClick={() => setIsCampDetailOpen(true)}

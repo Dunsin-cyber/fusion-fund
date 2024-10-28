@@ -5,6 +5,7 @@ import Background from "@/components/Background";
 import Profile from "@/components/Profile";
 import Stat from "@/components/Profile/Stat";
 import CreateCamp from "@/components/Profile/MyCampaign";
+import MyInfo from "@/components/Profile/MyInfo";
 
 function Index() {
   const router = useRouter();
@@ -13,6 +14,7 @@ function Index() {
     <Background>
       <div className="flex flex-col space-y-10">
         <Profile />
+        <MyInfo />
         <Stat />
         <CreateCamp />
       </div>
