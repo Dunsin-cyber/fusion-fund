@@ -9,6 +9,7 @@ import Drawer from "@/components/custom/Drawer";
 import { useClient } from "@/context";
 import CreateCampaignDrawer from "@/components/Profile/CreateCampaignDrawer";
 import CampaignDetailDrawer from "@/components/Campaign/CampaignDetailDrawer";
+import ConnectWalletDrawer from "@/components/Drawer/ConnectWalletDrawer";
 
 export default function Home({ children }) {
   const [impactOccurred] = useHapticFeedback();
@@ -19,6 +20,7 @@ export default function Home({ children }) {
     drawerIsOpen,
     isCreateCampOpen,
     isCampDetailOpen,
+    connectWallet,
   } = useClient();
 
   const onClose = () => {
@@ -34,6 +36,7 @@ export default function Home({ children }) {
         drawerTitle={drawerTitle}
         drawerBody={drawerBody}
       />
+      <ConnectWalletDrawer connectWallet={connectWallet} />
       <CreateCampaignDrawer isCreateCampOpen={isCreateCampOpen} />
       <CampaignDetailDrawer isCampDetailOpen={isCampDetailOpen} />
       <FooterNav />

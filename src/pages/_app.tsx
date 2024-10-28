@@ -5,6 +5,7 @@ import { Wallet, NearContext } from "@/wallets/near";
 import { NetworkId, FusionFundContract } from "@/config";
 import Script from "next/script";
 import { UserContextProvider } from "@/context";
+import { Toaster } from "react-hot-toast";
 
 const wallet = new Wallet({
   networkId: NetworkId,
@@ -32,7 +33,19 @@ export default function MyApp({ Component, pageProps }) {
               }
             }}
           />
-          {/* <Navigation /> */}
+          <Toaster
+            toastOptions={{
+              className: "",
+              style: {
+                border: `1px solid #AC6AFF`,
+                padding: "16px",
+                color: "#AC6AFF",
+                backgroundColor: "#FFC876",
+                borderRadius: "8px",
+                fontFamily: "Arial, sans-serif",
+              },
+            }}
+          />
           <Component {...pageProps} />
         </Provider>
       </NearContext.Provider>

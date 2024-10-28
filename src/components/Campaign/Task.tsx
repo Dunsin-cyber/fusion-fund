@@ -6,8 +6,13 @@ import { useClient } from "@/context";
 function Campaigns() {
   const [isOpen, setIsOpen] = React.useState(false);
 
-  const { passDrawerParams, setDrawerIsOpen, setDrawerBody, setDrawerTitle } =
-    useClient();
+  const {
+    passDrawerParams,
+    setDrawerIsOpen,
+    setDrawerBody,
+    setDrawerTitle,
+    setConnectWallet,
+  } = useClient();
 
   const handleConnectEmail = () => {
     // console.log("clicked");
@@ -33,7 +38,7 @@ function Campaigns() {
         <div className="space-y-6 mt-2">
           {/* task */}
           <div
-            onClick={handleConnectEmail}
+            onClick={() => setConnectWallet(true)}
             className="rounded-lg border border-blue-800 border-5 flex justify-between items-center py-3 px-5"
           >
             <CiFlag1 color="white" />
