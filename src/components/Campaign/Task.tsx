@@ -4,16 +4,21 @@ import { CiFlag1 } from "react-icons/ci";
 import { useClient } from "@/context";
 import { NearContext } from "@/wallets/near";
 import { FaCheckCircle } from "react-icons/fa";
+import { useAppSelector } from "@/redux/hook";
+import { useGetUser } from "@/functions";
 
 function Campaigns() {
   const { signedAccountId } = useContext(NearContext);
   //get user from redux, if user has campign, mark it as true.
   //if completd, save the data on telegram storage
-
-  const { setConnectWallet, setIsCreateCampOpen } = useClient();
+  const user = useAppSelector((state) => state.profile);
+  const { getUser } = useGetUser();
+  const { setConnectWallet, setIsCreateCampOpen, setIsCreateProfile } =
+    useClient();
 
   React.useEffect(() => {
     console.log(signedAccountId);
+    getUser();
   }, [signedAccountId]);
 
   return (
@@ -40,6 +45,27 @@ function Campaigns() {
               <p className="text-xs">or connect with your wallet</p>
             </div>
             {signedAccountId ? (
+              <FaCheckCircle size={"30px"} color="green" />
+            ) : (
+              <h1 className="bg-white text-black rounded-full px-2"> Go</h1>
+            )}
+          </div>
+          {/* set up your profile */}
+          <div
+            onClick={() => {
+              if (user) return;
+
+              setIsCreateProfile(true);
+            }}
+            className="rounded-lg border border-blue-800 border-5 flex justify-between items-center py-3 px-5"
+          >
+            <CiFlag1 color="white" />
+            <div>
+              <p className="font-bold text-sm">Add a username</p>
+              <p className="text-xs">and a short bio</p>
+            </div>
+
+            {user ? (
               <FaCheckCircle size={"30px"} color="green" />
             ) : (
               <h1 className="bg-white text-black rounded-full px-2"> Go</h1>

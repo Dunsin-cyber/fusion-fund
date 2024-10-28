@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+.border-t-gradient {
+  border-top: 4px solid;
+  border-image: conic-gradient(from 0deg, #ff7eb3, #ff758c, #ff6f61);
+  border-image-slice: 1;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

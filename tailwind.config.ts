@@ -8,7 +8,7 @@ const config = {
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
-    "./src/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx,js,ts}",
   ],
   prefix: "",
   theme: {
@@ -21,6 +21,9 @@ const config = {
     },
     extend: {
       colors: {
+        "gradient-start": "#ff7eb3",
+        "gradient-middle": "#ff758c",
+        "gradient-end": "#ff6f61",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -63,6 +66,9 @@ const config = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      borderColor: {
+        gradient: "conic-gradient(from 0deg, #ff7eb3, #ff758c, #ff6f61)",
+      },
       keyframes: {
         beep: {
           "0%, 20%": { transform: "scale(1)", opacity: "1" },
@@ -82,6 +88,7 @@ const config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         beep: "beep 1s ease-in-out infinite",
+        "spin-gradient": "spin 1s linear infinite",
       },
     },
   },

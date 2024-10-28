@@ -13,19 +13,11 @@ export const ProfileSlice = createSlice({
       if (state === null) {
         return payload;
       }
-
-      state.id_hash = payload.id_hash;
-      state.dob = payload.dob;
-      state.status = payload.status;
-      state.bounties_wons = payload.bounties_wons;
-      state.bountys_created = payload.bountys_created;
       state.username = payload.username;
-      state.is_mod = payload.is_mod;
-      state.secret_account_key = payload.secret_account_key;
-      state.named_account_id = payload.named_account_id;
-      state.smart_contract_id = payload.smart_contract_id;
-      state.guild_badge = payload.guild_badge;
-      state.github_link = payload.github_link;
+      state.bio = payload.bio;
+      state.kyc_verified = payload.kyc_verified;
+      state.contributions = payload.contributions;
+      state.created_campaigns = payload.created_campaigns;
     },
     clearProfile: () => {
       return initialState;

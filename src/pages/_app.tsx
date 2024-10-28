@@ -41,9 +41,9 @@ export default function MyApp({ Component, pageProps }) {
                 className: "",
                 style: {
                   border: `1px solid #AC6AFF`,
-                  padding: "16px",
-                  color: "#AC6AFF",
-                  backgroundColor: "#FFC876",
+                  padding: "8px",
+                  color: "#ffffff",
+                  backgroundColor: "#333333",
                   borderRadius: "8px",
                   fontFamily: "Arial, sans-serif",
                 },

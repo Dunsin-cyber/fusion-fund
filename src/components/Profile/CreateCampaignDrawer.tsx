@@ -3,7 +3,6 @@ import {
   DrawerBackdrop,
   DrawerBody,
   DrawerContent,
-  DrawerFooter,
   DrawerHeader,
   DrawerRoot,
   DrawerTitle,

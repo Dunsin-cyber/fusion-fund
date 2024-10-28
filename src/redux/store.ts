@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import profile from "./slice/ProfileSlice";
-import bounties from "./slice/BountiesSlice";
+import campaign from "./slice/CampaignSlice";
+import myCampaign from "./slice/MyCampaigns";
 
 export const store = configureStore({
   reducer: {
     profile,
-    bounties,
+    campaign,
+    myCampaign,
   },
 });
 

@@ -10,6 +10,7 @@ import { useClient } from "@/context";
 import CreateCampaignDrawer from "@/components/Profile/CreateCampaignDrawer";
 import CampaignDetailDrawer from "@/components/Campaign/CampaignDetailDrawer";
 import ConnectWalletDrawer from "@/components/Drawer/ConnectWalletDrawer";
+import WriteProfile from "../Drawer/WriteProfile";
 
 export default function Home({ children }) {
   const [impactOccurred] = useHapticFeedback();
@@ -21,6 +22,7 @@ export default function Home({ children }) {
     isCreateCampOpen,
     isCampDetailOpen,
     connectWallet,
+    isCreateProfile,
   } = useClient();
 
   const onClose = () => {
@@ -39,6 +41,7 @@ export default function Home({ children }) {
       <ConnectWalletDrawer connectWallet={connectWallet} />
       <CreateCampaignDrawer isCreateCampOpen={isCreateCampOpen} />
       <CampaignDetailDrawer isCampDetailOpen={isCampDetailOpen} />
+      <WriteProfile isCreateProfile={isCreateProfile} />
       <FooterNav />
     </div>
   );

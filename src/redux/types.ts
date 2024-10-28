@@ -1,23 +1,19 @@
-export interface BountyAccount {
-  id_hash: string;
-  creator: string;
-  creator_id: string;
-  status: string;
-  idx: number;
-  bounty_requrements: string;
-  bounty_type: string;
-  guild: Guild[];
-  messages?: Chat[];
-  users: string[];
-  winners: string[];
-  total_fund: number;
-  no_of_winners: number;
-  no_of_participants: bigint;
-  start_date: string;
-  end_date: string;
+export interface Campaign {
+  creator: string; // Equivalent to `AccountId` in Rust
+  total_contributions: number; // Equivalent to `u64`
+  contributions: Contribution[]; // Equivalent to `Vec<Contribution>`
+  crowdfunding_end_time: number; // Equivalent to `U64`
+  claimed: boolean;
+  amount_required: number; // Equivalent to `u64`
   title: string;
   description: string;
-  milestones: MilestonesAccount[];
+  images: string;
+  campaign_code: string;
+}
+
+export interface Contribution {
+  contributor: string;
+  amount: number;
 }
 
 export interface BuildAccount {
@@ -153,16 +149,9 @@ export interface TokenState {
 }
 
 export interface User {
-  id_hash: string;
-  dob: string; // u8
-  status: string;
-  bounties_wons: number; // u8
-  bountys_created: number; // u8
   username: string;
-  is_mod: boolean;
-  secret_account_key: string;
-  named_account_id: string;
-  smart_contract_id: string;
-  guild_badge: string;
-  github_link: string;
+  bio: string | null;
+  kyc_verified: boolean;
+  contributions: number[];
+  created_campaigns: number[];
 }

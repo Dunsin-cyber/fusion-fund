@@ -1,27 +1,107 @@
 "use client";
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { cn } from "@/lib/utils";
+import { useForm } from "react-hook-form";
 import { useClient } from "@/context";
+import { NearContext } from "@/wallets/near";
+import { FusionFundContract } from "@/config";
+import toast from "react-hot-toast";
+import { useRouter } from "next/router";
+import { Spinner } from "@chakra-ui/react";
+import { MdOutlineCancel } from "react-icons/md";
+
+// Example usage:
+// const title = "Example Title";
+// const randomCode = generateCode(title);
+// console.log(`Generated code for "${title}": ${randomCode}`);
 
 export function SignupFormDemo() {
+  const [code, setCode] = useState("");
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const {
+    register,
+    watch,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const { wallet } = useContext(NearContext);
+
+  function generateCode(title) {
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"; // Allowed characters
+    let code = "";
+
+    // Generate a random code of 5 characters
+    for (let i = 0; i < 5; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      code += characters[randomIndex];
+    }
+    setCode(code);
+    return code;
+  }
+
   const { setIsCreateCampOpen } = useClient();
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("Form submitted");
+
+  const onSubmit = async (e: any) => {
+    console.log(e);
+    if (wallet) {
+      try {
+        setLoading(true);
+        const create_camp = await wallet.callMethod({
+          contractId: FusionFundContract,
+          method: "create_campaign",
+          args: {
+            end_time: new Date(e.time).getTime().toString(),
+            title: e.title,
+            description: e.description,
+            images: "",
+            amount_required: e.amount_required,
+            campaign_code: e.campaign_code,
+          },
+        });
+
+        toast.success("campaign created");
+        router.push("/camapign");
+        setIsCreateCampOpen(false);
+      } catch (err) {
+        toast.error("could not create campaign");
+        console.log(err);
+      } finally {
+        setLoading(false);
+      }
+    }
   };
+
+  useEffect(() => {
+    generateCode(watch("title"));
+  }, [watch("title")]);
+
   return (
-    <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
-      <form className="my-8" onSubmit={handleSubmit}>
+    <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input dark:bg-black">
+      <div
+        className="flex justify-end "
+        onClick={() => setIsCreateCampOpen(false)}
+      >
+        <MdOutlineCancel size={"30px"} />
+      </div>
+      <form className="my-8" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
           <LabelInputContainer>
             <Label htmlFor="firstname">Campaign name</Label>
-            <Input id="firstname" placeholder="title" type="text" />
+            <Input
+              {...register("title", { required: true })}
+              id="firstname"
+              placeholder="title"
+              type="text"
+            />
           </LabelInputContainer>
           <LabelInputContainer>
             <Label htmlFor="lastname">Description</Label>
             <Input
+              {...register("description", { required: true })}
               id="lastname"
               placeholder="i need this fund..."
               type="text"
@@ -30,23 +110,48 @@ export function SignupFormDemo() {
         </div>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">How much do you want to Raise</Label>
-          <Input id="email" placeholder="0" type="email" />
+          <Input
+            id="amount"
+            {...register("amount_required", { required: true })}
+            placeholder="0"
+            type="number"
+          />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
-          <Label htmlFor="password">Token</Label>
-          <Input id="password" placeholder="NEAR" type="text" />
+          <Label htmlFor="token">Token</Label>
+          <Input
+            {...register("token", { required: true })}
+            id="token"
+            placeholder="NEAR"
+            type="option"
+          />
         </LabelInputContainer>
         <LabelInputContainer className="mb-8">
-          <Label htmlFor="twitterpassword">Additonal Note</Label>
-          <Input id="twitterpassword" placeholder="" type="text" />
+          <Label htmlFor="time">Til When</Label>
+          <Input
+            {...register("time", { required: true })}
+            id="time"
+            placeholder=""
+            type="date"
+          />
+        </LabelInputContainer>
+        <LabelInputContainer className="mb-8">
+          <Label htmlFor="time">Donation Code</Label>
+          <Input
+            disabled={true}
+            id="time"
+            value={code}
+            placeholder=""
+            type="text"
+          />
         </LabelInputContainer>
 
         <button
+          disabled={loading}
           className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
           type="submit"
-          onClick={() => setIsCreateCampOpen(false)}
         >
-          Create &rarr;
+          {loading ? "loading..." : "Create"} &rarr;
           <BottomGradient />
         </button>
 
