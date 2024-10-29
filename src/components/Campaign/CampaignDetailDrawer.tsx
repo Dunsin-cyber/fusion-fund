@@ -18,8 +18,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { addCampaignInView } from "@/redux/slice/CampInViewSlice";
 import { msToDaysLeft } from "@/lib/DaysLeft";
 import { ProgressBar, ProgressRoot } from "@/components/ui/progress";
-import {serializeError} from "@/lib/SerializeError"
-
+import { serializeError } from "@/lib/SerializeError";
 
 function CampaignDetailDrawer({ isCampDetailOpen }) {
   const { closeDrawer } = useClient();
@@ -50,6 +49,7 @@ export default CampaignDetailDrawer;
 function Details() {
   const { setIsCampDetailOpen, campId } = useClient();
   const [fetching, setFetching] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { wallet, signedAccountId } = React.useContext(NearContext);
   const dispatch = useAppDispatch();
   const campaign = useAppSelector((state) => state.campInView);
@@ -80,7 +80,30 @@ function Details() {
   }, [campId]);
 
   const handleClick = async () => {
-    setOpenDonationDiv(true);
+    if (
+      signedAccountId === campaign.creator &&
+      campaign.total_contributions >= campaign.amount_required
+    ) {
+      try {
+        setLoading(true);
+        const claim = await wallet.callMethod({
+          contractId: FusionFundContract,
+          method: "withdraw",
+          args: {
+            campaign_id: campId,
+          },
+        });
+        toast.success("Withdarwal Successful");
+        return;
+      } catch (err) {
+        const new_err = serializeError(err);
+        toast.error(new_err);
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      setOpenDonationDiv(true);
+    }
   };
 
   const handleDonate = async (amount: number) => {
@@ -101,7 +124,7 @@ function Details() {
         return;
       }
     } catch (err) {
-      const new_err = serializeError(err)
+      const new_err = serializeError(err);
 
       toast.error(new_err);
 
@@ -152,7 +175,11 @@ function Details() {
         <div className="text-white mb-4">
           <p className="text-gray-400 text-sm">
             Progress:{" "}
-            {(campaign.total_contributions / campaign.amount_required) * 100}%
+            {(
+              (campaign.total_contributions / campaign.amount_required) *
+              100
+            ).toPrecision(3)}
+            %
           </p>
         </div>
         <div>
@@ -160,6 +187,18 @@ function Details() {
             {msToDaysLeft(campaign.crowdfunding_end_time)} days left
           </span>
         </div>
+      </div>
+
+      <div className="text-green-400 font-sm">
+        Creator :{" "}
+        <span className="text-gray-400">
+          {campaign.creator.length > 20
+            ? campaign.creator.slice(0, 20)
+            : campaign.creator}
+        </span>
+        <span className="text-gray-400">
+          {campaign.creator.length > 20 ? "..." : ""}
+        </span>
       </div>
 
       {/* Reward */}
@@ -208,7 +247,7 @@ function Details() {
                 ? "Claim Donation"
                 : "Donate Now"
             }
-            isLoading={false}
+            isLoading={loading}
           />
         </div>
       )}
@@ -279,12 +318,12 @@ function DonateSection({ onDonate }) {
           Enter Donation Amount (NEAR)
         </label>
         <input
+          className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           type="number"
           id="donation"
           value={donationAmount}
           onChange={handleDonationChange}
           placeholder="0.00"
-          className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
