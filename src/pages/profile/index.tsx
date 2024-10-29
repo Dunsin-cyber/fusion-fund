@@ -8,16 +8,18 @@ import CreateCamp from "@/components/Profile/MyCampaign";
 import MyInfo from "@/components/Profile/MyInfo";
 import { useAppSelector } from "@/redux/hook";
 import { useClient } from "@/context";
-import { useGetUser } from "@/functions";
+import { useGetUser, useGetMyCampigns } from "@/functions";
 
 function Index() {
   const router = useRouter();
   const [impactOccurred] = useHapticFeedback();
   const { getUser } = useGetUser();
+  const { getMyCampaigns } = useGetMyCampigns();
   const user = useAppSelector((state) => state.profile);
 
   useEffect(() => {
     getUser();
+    getMyCampaigns();
   }, []);
   return (
     <Background>

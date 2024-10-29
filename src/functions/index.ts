@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { Campaign, User } from "@/redux/types";
 import { addProfile } from "@/redux/slice/ProfileSlice";
 import { addCampaign } from "@/redux/slice/CampaignSlice";
+import { addMyCampaign } from "@/redux/slice/MyCampaigns";
 
 export const useInitializeContract = () => {
   const [loading, setLoading] = useState(false);
@@ -185,4 +186,35 @@ export const useGetAllCampigns = () => {
     }
   };
   return { getCampaigns, loading };
+};
+
+export const useGetMyCampigns = () => {
+  const [loading, setLoading] = useState(false);
+  const { wallet, signedAccountId } = useContext(NearContext);
+  const dispatch = useAppDispatch();
+
+  const getMyCampaigns = async () => {
+    try {
+      setLoading(true);
+      const data = await wallet.viewMethod({
+        contractId: FusionFundContract,
+        method: "get_all_campaigns",
+        args: {},
+      });
+
+      console.log("FROM ACC", data);
+      if (data) {
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].creator === signedAccountId)
+            dispatch(addMyCampaign({ ...data[i], campaign_id: i }));
+        }
+      }
+    } catch (err) {
+      console.log("ERROR", err);
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+  return { getMyCampaigns, loading };
 };

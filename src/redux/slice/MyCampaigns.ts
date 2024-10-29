@@ -9,7 +9,7 @@ export const MyCampaignSlice = createSlice({
   name: "campaign",
   initialState,
   reducers: {
-    addCampaign: (state, { payload }: PayloadAction<Campaign>) => {
+    addMyCampaign: (state, { payload }: PayloadAction<Campaign>) => {
       state.push(payload);
     },
     clearMyCampaigns: () => {
@@ -18,6 +18,6 @@ export const MyCampaignSlice = createSlice({
   },
 });
 
-export const { clearMyCampaigns, addCampaign } = MyCampaignSlice.actions;
+export const { clearMyCampaigns, addMyCampaign } = MyCampaignSlice.actions;
 
 export default MyCampaignSlice.reducer;

@@ -9,6 +9,29 @@ function CreateCampaign() {
   const { setIsCreateCampOpen } = useClient();
   const myCampaigns = useAppSelector((state) => state.myCampaign);
 
+  const pics = [
+    "/donation-1.png",
+    "/donation-2.jpg",
+    "/donation-3.jpg",
+    "/donation-4.jpg",
+    // "donation-5.jpg",
+    // "donation-6.jpg",
+    // "donation-7.jpg",
+    // "donation-8.jpg",
+    // "donation-9.jpg",
+    // "donation-10.jpg",
+    // "donation-11.jpg",
+  ];
+
+  const getRandomImage = () => {
+    return pics[Math.floor(Math.random() * pics.length)];
+  };
+
+  const filteredCampaign = myCampaigns?.map((camp) => ({
+    ...camp, // Spread existing properties of each campaign
+    images: getRandomImage(),
+  }));
+
   return (
     <div className="space-y-5">
       <div className="flex justify-center">
@@ -27,7 +50,7 @@ function CreateCampaign() {
       </h2>
 
       <div className="p-4 bg-black min-h-screen">
-        {myCampaigns?.map((campaign, index) => (
+        {filteredCampaign?.map((campaign, index) => (
           <CampaignCard key={index} campaign={campaign} />
         ))}
       </div>

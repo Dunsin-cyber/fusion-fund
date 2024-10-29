@@ -149,9 +149,9 @@ function Details() {
         <div className="flex flex-col items-center">
           <div className="text-blue-400 text-xl font-bold">
             {" "}
-            {campaign.total_contributions.toLocaleString()}
+            {campaign.campaign_code}
           </div>
-          <div className="text-gray-400 text-sm">Donated</div>
+          <div className="text-gray-400 text-sm">Code</div>
         </div>
       </div>
 
