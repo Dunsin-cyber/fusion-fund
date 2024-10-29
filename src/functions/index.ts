@@ -8,6 +8,7 @@ import { Campaign, User } from "@/redux/types";
 import { addProfile } from "@/redux/slice/ProfileSlice";
 import { addCampaign } from "@/redux/slice/CampaignSlice";
 import { addMyCampaign } from "@/redux/slice/MyCampaigns";
+import { serializeError } from "@/lib/SerializeError";
 
 export const useInitializeContract = () => {
   const [loading, setLoading] = useState(false);
@@ -26,6 +27,9 @@ export const useInitializeContract = () => {
         console.log("Initialized Account Successfully");
         return;
       } catch (err) {
+              // const new_err = serializeError(err);
+
+              // toast.error(new_err);
         console.log(err);
       } finally {
         setLoading(false);
@@ -119,6 +123,8 @@ export const useCreateUser = () => {
       } catch (err) {
         console.log("ERROR", err);
         console.log(err);
+            const new_err = serializeError(err);
+              toast.error(new_err);
       } finally {
         setLoading(false);
       }

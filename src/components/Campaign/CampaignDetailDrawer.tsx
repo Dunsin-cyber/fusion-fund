@@ -17,6 +17,9 @@ import { FusionFundContract } from "@/config";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { addCampaignInView } from "@/redux/slice/CampInViewSlice";
 import { msToDaysLeft } from "@/lib/DaysLeft";
+import { ProgressBar, ProgressRoot } from "@/components/ui/progress";
+import {serializeError} from "@/lib/SerializeError"
+
 
 function CampaignDetailDrawer({ isCampDetailOpen }) {
   const { closeDrawer } = useClient();
@@ -50,7 +53,7 @@ function Details() {
   const { wallet, signedAccountId } = React.useContext(NearContext);
   const dispatch = useAppDispatch();
   const campaign = useAppSelector((state) => state.campInView);
-
+  const [openDonationDiv, setOpenDonationDiv] = useState(false);
   const handleGetCampaignDetails = async () => {
     try {
       if (wallet) {
@@ -75,6 +78,36 @@ function Details() {
   useEffect(() => {
     handleGetCampaignDetails();
   }, [campId]);
+
+  const handleClick = async () => {
+    setOpenDonationDiv(true);
+  };
+
+  const handleDonate = async (amount: number) => {
+    try {
+      if (wallet && signedAccountId) {
+        const donate = await wallet?.callMethod({
+          contractId: FusionFundContract,
+          method: "contribute",
+          args: {
+            campaign_id: campId,
+          },
+          deposit: amount * 1e24,
+        });
+
+        console.log(donate);
+        toast.success(`You have successfully Donated ${amount} NEAR`);
+        setIsCampDetailOpen(false);
+        return;
+      }
+    } catch (err) {
+      const new_err = serializeError(err)
+
+      toast.error(new_err);
+
+      console.log(err);
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -155,21 +188,118 @@ function Details() {
         </div>
       </div>
 
+      {/* donation progress bar and input field */}
+      {openDonationDiv && (
+        <div className="space-y-3">
+          <DonateSection onDonate={handleDonate} />
+        </div>
+      )}
       {/* Donate Button */}
-      <div className={"flex justify-center pb-8"}>
-        <CustomButton
-          disabled={
-            campaign.creator === signedAccountId &&
-            campaign.total_contributions < campaign.amount_required
-          }
-          title={
-            campaign.creator === signedAccountId
-              ? "Claim Donation"
-              : "Donate Now"
-          }
-          isLoading={false}
+      {!openDonationDiv && (
+        <div className={"flex justify-center pb-8"}>
+          <CustomButton
+            onClick={handleClick}
+            disabled={
+              campaign.creator === signedAccountId &&
+              campaign.total_contributions < campaign.amount_required
+            }
+            title={
+              campaign.creator === signedAccountId
+                ? "Claim Donation"
+                : "Donate Now"
+            }
+            isLoading={false}
+          />
+        </div>
+      )}
+    </div>
+  );
+}
+
+function DonateSection({ onDonate }) {
+  const [donationAmount, setDonationAmount] = useState("");
+  const { wallet, signedAccountId } = React.useContext(NearContext);
+  const [nearBalance, setNearBalance] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const getBalance = async () => {
+    if (wallet && signedAccountId) {
+      console.log(wallet);
+      try {
+        const balance = await wallet?.getBalance(signedAccountId);
+        setNearBalance(balance);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
+  useEffect(() => {
+    getBalance();
+  }, []);
+
+  const handleDonationChange = (e) => {
+    setDonationAmount(e.target.value);
+  };
+
+  const handleDonateClick = async () => {
+    const amount = parseFloat(donationAmount);
+    if (amount && amount > 0) {
+      if (amount > nearBalance) {
+        toast.error("Your Balance is Low");
+        return;
+      }
+      setLoading(true);
+
+      await onDonate(amount);
+      setDonationAmount("");
+      setLoading(false);
+    } else {
+      toast.error("Please enter a valid donation amount.");
+    }
+  };
+
+  return (
+    <div className="space-y-4 w-full max-w-md mx-auto p-6 rounded-lg bg-gray-800 shadow-md pb-7 mb-7">
+      <h2 className="text-xl font-semibold text-white">Donate Now</h2>
+
+      {/* Display Current Balance */}
+      <div className="flex justify-between items-center">
+        <p className="text-gray-200">Current Balance:</p>
+        <p className="text-gray-400 font-bold">{nearBalance} NEAR</p>
+      </div>
+
+      {/* Progress Bar */}
+      <ProgressRoot value={20}>
+        <ProgressBar />
+      </ProgressRoot>
+
+      {/* Donation Input */}
+      <div className="space-y-2">
+        <label htmlFor="donation" className="block text-sm text-gray-300">
+          Enter Donation Amount (NEAR)
+        </label>
+        <input
+          type="number"
+          id="donation"
+          value={donationAmount}
+          onChange={handleDonationChange}
+          placeholder="0.00"
+          className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
+
+      {/* Donate Button */}
+      <button
+        onClick={handleDonateClick}
+        disabled={!donationAmount || parseFloat(donationAmount) <= 0 || loading}
+        className={`w-full py-2 mt-3 rounded-lg text-white ${
+          !donationAmount || parseFloat(donationAmount) <= 0
+            ? "bg-gray-400 cursor-not-allowed"
+            : "bg-blue-600 hover:bg-blue-700"
+        }`}
+      >
+        {loading ? "donating..." : "Donate"}
+      </button>
     </div>
   );
 }

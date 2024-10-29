@@ -125,7 +125,11 @@ export const CampaignCard = ({ campaign }) => {
       <div className="text-white mb-4">
         <p className="text-gray-400 text-sm">
           Progress:{" "}
-          {(campaign.total_contributions / campaign.amount_required) * 100}%
+          {(
+            (campaign.total_contributions / campaign.amount_required) *
+            100
+          ).toPrecision(3)}
+          %
         </p>
       </div>
 

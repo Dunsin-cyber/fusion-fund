@@ -57,7 +57,7 @@ export function SignupFormDemo() {
           contractId: FusionFundContract,
           method: "create_campaign",
           args: {
-            end_time: new Date(e.time).getTime().toString(),
+            end_time: (new Date(e.time).getTime() * 1_000_000).toString(),
             title: e.title,
             description: e.description,
             images: "image",
