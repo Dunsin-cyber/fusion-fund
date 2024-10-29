@@ -9,31 +9,6 @@ function CreateCampaign() {
   const { setIsCreateCampOpen } = useClient();
   const myCampaigns = useAppSelector((state) => state.myCampaign);
 
-  const campaigns_ = [
-    {
-      title: "Fund My Tuition",
-      image: "/donation-3.jpg",
-      progress: "50",
-      daysLeft: "16",
-      rewards: [
-        { amount: "400", label: "Donors" },
-        { amount: "3,600", label: "NEAR" },
-        { amount: "4", label: "BOXES" },
-      ],
-    },
-    {
-      title: "Help Rebuild Home",
-      image: "/donation-4.jpg",
-      progress: "23",
-      daysLeft: "15",
-      rewards: [
-        { amount: "3", label: "Donors" },
-        { amount: "2,600", label: "USDT" },
-        { amount: "2", label: "BOXES" },
-      ],
-    },
-  ];
-
   return (
     <div className="space-y-5">
       <div className="flex justify-center">

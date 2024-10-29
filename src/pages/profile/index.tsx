@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useHapticFeedback } from "@vkruglikov/react-telegram-web-app";
 import Background from "@/components/Background";
@@ -8,11 +8,17 @@ import CreateCamp from "@/components/Profile/MyCampaign";
 import MyInfo from "@/components/Profile/MyInfo";
 import { useAppSelector } from "@/redux/hook";
 import { useClient } from "@/context";
+import { useGetUser } from "@/functions";
 
 function Index() {
   const router = useRouter();
   const [impactOccurred] = useHapticFeedback();
+  const { getUser } = useGetUser();
   const user = useAppSelector((state) => state.profile);
+
+  useEffect(() => {
+    getUser();
+  }, []);
   return (
     <Background>
       {user ? (

@@ -6,6 +6,7 @@ import { FaFlag, FaBolt, FaUser, FaHandHolding } from "react-icons/fa";
 const DashboardCards = () => {
   const { wallet, signedAccountId } = React.useContext(NearContext);
   const myCamp = useAppSelector((state) => state.myCampaign);
+  const user = useAppSelector((state) => state.profile);
   const [nearBalance, setNearBalance] = useState(0);
   const getBalance = async () => {
     if (wallet && signedAccountId) {
@@ -37,9 +38,11 @@ const DashboardCards = () => {
       <div className="flex flex-col items-center bg-gray-900 p-4 rounded-lg">
         <div className="flex items-center space-x-2">
           <FaBolt className="text-orange-500" />
-          <span className="text-2xl font-semibold">2</span>
+          <span className="text-2xl font-semibold">
+            {user?.contributions.length}
+          </span>
         </div>
-        <p className="mt-2 text-gray-400 text-sm">Streaks</p>
+        <p className="mt-2 text-gray-400 text-sm">contributions</p>
       </div>
 
       {/* Friends Card */}
