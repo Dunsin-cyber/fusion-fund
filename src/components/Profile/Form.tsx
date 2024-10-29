@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import { Spinner } from "@chakra-ui/react";
 import { MdOutlineCancel } from "react-icons/md";
+import { useGetUser } from "@/functions";
 
 // Example usage:
 // const title = "Example Title";
@@ -20,6 +21,8 @@ import { MdOutlineCancel } from "react-icons/md";
 export function SignupFormDemo() {
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
+  const { getUser } = useGetUser();
+
   const router = useRouter();
   const {
     register,
@@ -63,8 +66,9 @@ export function SignupFormDemo() {
           },
         });
 
-        toast.success("campaign created");
+        await getUser();
         setIsCreateCampOpen(false);
+        toast.success("campaign created");
       } catch (err) {
         toast.error("could not create campaign");
         console.log(err);
