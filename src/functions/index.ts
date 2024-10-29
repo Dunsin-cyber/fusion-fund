@@ -114,7 +114,6 @@ export const useCreateUser = () => {
               created_campaigns: [],
             })
           );
-          toast.success("Profile added successfully");
           return;
         }
       } catch (err) {

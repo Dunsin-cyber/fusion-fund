@@ -60,7 +60,7 @@ function Campaigns() {
               {/* set up your profile */}
               <div
                 onClick={() => {
-                  // if (user) return;
+                  if (user) return;
 
                   setIsCreateProfile(true);
                 }}
