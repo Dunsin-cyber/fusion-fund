@@ -15,7 +15,7 @@ function Index() {
   const user = useAppSelector((state) => state.profile);
   return (
     <Background>
-      {user.username ? (
+      {user ? (
         <div className="flex flex-col space-y-10">
           <Profile />
           <MyInfo />
