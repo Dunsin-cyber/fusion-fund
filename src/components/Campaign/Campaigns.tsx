@@ -7,7 +7,6 @@ import { useClient } from "@/context";
 import { NearContext } from "@/wallets/near";
 import { FusionFundContract } from "@/config";
 import toast from "react-hot-toast";
-import { useGetAllCampigns } from "@/functions";
 import { useAppSelector } from "@/redux/hook";
 import { Campaign } from "@/redux/types";
 import { msToDaysLeft } from "@/lib/DaysLeft";
@@ -15,7 +14,6 @@ import { msToDaysLeft } from "@/lib/DaysLeft";
 function Campaigns() {
   const [active, setActive] = React.useState(true);
   const { wallet, signedAccountId } = React.useContext(NearContext);
-  const { getCampaigns } = useGetAllCampigns();
   const campaigns = useAppSelector((state) => state.campaigns);
 
   const pics = [
@@ -40,10 +38,6 @@ function Campaigns() {
     ...camp, // Spread existing properties of each campaign
     images: getRandomImage(),
   }));
-
-  React.useEffect(() => {
-    getCampaigns();
-  }, []);
 
   return (
     <div className="px-3">

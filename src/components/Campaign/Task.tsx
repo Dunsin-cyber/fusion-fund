@@ -20,7 +20,6 @@ function Campaigns() {
     useClient();
 
   React.useEffect(() => {
-    console.log(signedAccountId);
     getUser();
     initContract();
   }, [signedAccountId]);
