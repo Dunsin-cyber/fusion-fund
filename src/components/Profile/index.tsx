@@ -31,7 +31,12 @@ function Profile() {
 
           {signedAccountId && (
             <span className="space-x-3 flex items-center ">
-              <p>{signedAccountId}</p>
+              <p>
+                {signedAccountId.length > 20
+                  ? signedAccountId.slice(0, 20)
+                  : signedAccountId}
+                {signedAccountId.length > 20 && "..."}
+              </p>
               <MdOutlineVerified />
             </span>
           )}

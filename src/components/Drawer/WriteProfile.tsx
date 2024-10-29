@@ -16,14 +16,15 @@ import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { cn } from "@/lib/utils";
 import { useAppSelector } from "@/redux/hook";
-import { useCreateUser,useGetUser } from "@/functions";
+import { useCreateUser, useGetUser } from "@/functions";
+import toast from "react-hot-toast";
 
 const WriteProfile = ({ isCreateProfile }) => {
   const { closeDrawer } = useClient();
 
   return (
     <DrawerRoot
-      size="lg"
+      size="full"
       open={isCreateProfile}
       onOpenChange={closeDrawer}
       placement={"bottom"}
@@ -50,7 +51,10 @@ export function Form() {
   const [title, setTitle] = useState(user ? user.username : "");
   const [bio, setBio] = useState(user ? user.bio : "");
   const { createUser, loading } = useCreateUser();
-  const {getUser} = useGetUser()
+  const { getUser } = useGetUser();
+
+  const { setIsCreateProfile } = useClient();
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Form submitted");
@@ -59,13 +63,13 @@ export function Form() {
       username: title,
     };
     await createUser(data);
-    await getUser();
-    setIsCreateCampOpen(false);
+    setIsCreateProfile(false);
+    toast.success("Profile added successfully");
 
+    await getUser();
   };
-  const { setIsCreateCampOpen, setIsCreateProfile } = useClient();
   return (
-    <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
+    <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input ">
       <div
         className="flex justify-end "
         onClick={() => setIsCreateProfile(false)}

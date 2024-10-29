@@ -8,6 +8,8 @@ import {
 } from "react-icons/fa";
 import { useRouter } from "next/router";
 import { useAppSelector } from "@/redux/hook";
+import { CiEdit } from "react-icons/ci";
+import { useClient } from "@/context";
 
 const UserProfile = () => {
   const router = useRouter();
@@ -15,14 +17,22 @@ const UserProfile = () => {
   const user = useAppSelector((state) => state.profile);
   const connectedWallet = "mynearWallet";
 
+  const { setIsCreateProfile } = useClient();
+
   const handleLogOut = () => {
     wallet.signOut();
     router.push("/");
   };
 
   return (
-    <div className="p-6  text-white max-w-sm mx-auto rounded-lg space-y-6">
+    <div className="p-6  text-white  mx-auto rounded-lg space-y-6">
       {/* User Info */}
+      <div
+        onClick={() => setIsCreateProfile(true)}
+        className="flex justify-end"
+      >
+        <CiEdit color="white" />
+      </div>
       <div className="text-start">
         <h2 className="text-2xl font-bold">{user?.username}</h2>
         <p className="mt-2 text-gray-400 text-sm">{user?.bio}</p>
@@ -34,7 +44,7 @@ const UserProfile = () => {
           <FaWallet className="text-green-500" />
           <span className="text-sm font-semibold">Connected Wallet:</span>
         </div>
-        <span className="text-gray-300 text-xs">{connectedWallet}</span>
+        {/* <span className="text-gray-300 text-xs">{connectedWallet}</span> */}
       </div>
 
       {/* KYC Verification Status */}
