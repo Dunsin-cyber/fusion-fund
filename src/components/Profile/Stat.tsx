@@ -1,9 +1,11 @@
+import { useAppSelector } from "@/redux/hook";
 import { NearContext } from "@/wallets/near";
 import React, { useEffect, useState } from "react";
 import { FaFlag, FaBolt, FaUser, FaHandHolding } from "react-icons/fa";
 
 const DashboardCards = () => {
   const { wallet, signedAccountId } = React.useContext(NearContext);
+  const myCamp = useAppSelector((state) => state.myCampaign);
   const [nearBalance, setNearBalance] = useState(0);
   const getBalance = async () => {
     if (wallet && signedAccountId) {
@@ -26,7 +28,7 @@ const DashboardCards = () => {
       <div className="flex flex-col items-center bg-gray-900 p-4 rounded-lg">
         <div className="flex items-center space-x-2">
           <FaFlag className="text-red-500" />
-          <span className="text-2xl font-semibold">1</span>
+          <span className="text-2xl font-semibold">{myCamp.length}</span>
         </div>
         <p className="mt-2 text-gray-400 text-sm">Campaigns</p>
       </div>

@@ -3,10 +3,13 @@ import Button from "@/components/custom/Button";
 import { MdCampaign } from "react-icons/md";
 import { CampaignCard } from "../Campaign/Campaigns";
 import { useClient } from "@/context";
+import { useAppSelector } from "@/redux/hook";
 
 function CreateCampaign() {
   const { setIsCreateCampOpen } = useClient();
-  const campaigns = [
+  const myCampaigns = useAppSelector((state) => state.myCampaign);
+
+  const campaigns_ = [
     {
       title: "Fund My Tuition",
       image: "/donation-3.jpg",
@@ -49,8 +52,8 @@ function CreateCampaign() {
       </h2>
 
       <div className="p-4 bg-black min-h-screen">
-        {campaigns.map((campaign, index) => (
-          <CampaignCard key={index} {...campaign} />
+        {myCampaigns?.map((campaign, index) => (
+          <CampaignCard key={index} campaign={campaign} />
         ))}
       </div>
     </div>

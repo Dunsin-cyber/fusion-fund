@@ -1,13 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import profile from "./slice/ProfileSlice";
-import campaign from "./slice/CampaignSlice";
+import campaigns from "./slice/CampaignSlice";
 import myCampaign from "./slice/MyCampaigns";
+import campInView from "./slice/CampInViewSlice";
 
 export const store = configureStore({
   reducer: {
     profile,
-    campaign,
+    campaigns,
     myCampaign,
+    campInView,
   },
 });
 

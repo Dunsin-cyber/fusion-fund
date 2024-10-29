@@ -46,7 +46,7 @@ export function SignupFormDemo() {
   const { setIsCreateCampOpen } = useClient();
 
   const onSubmit = async (e: any) => {
-    console.log(e);
+    console.log(e, new Date(e.time).getTime().toString());
     if (wallet) {
       try {
         setLoading(true);
@@ -57,14 +57,13 @@ export function SignupFormDemo() {
             end_time: new Date(e.time).getTime().toString(),
             title: e.title,
             description: e.description,
-            images: "",
-            amount_required: e.amount_required,
-            campaign_code: e.campaign_code,
+            images: "image",
+            amount_required: +e.amount_required,
+            campaign_code: code,
           },
         });
 
         toast.success("campaign created");
-        router.push("/camapign");
         setIsCreateCampOpen(false);
       } catch (err) {
         toast.error("could not create campaign");

@@ -16,7 +16,7 @@ import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { cn } from "@/lib/utils";
 import { useAppSelector } from "@/redux/hook";
-import { useCreateUser } from "@/functions";
+import { useCreateUser,useGetUser } from "@/functions";
 
 const WriteProfile = ({ isCreateProfile }) => {
   const { closeDrawer } = useClient();
@@ -50,7 +50,7 @@ export function Form() {
   const [title, setTitle] = useState(user ? user.username : "");
   const [bio, setBio] = useState(user ? user.bio : "");
   const { createUser, loading } = useCreateUser();
-
+  const {getUser} = useGetUser()
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Form submitted");
@@ -59,7 +59,9 @@ export function Form() {
       username: title,
     };
     await createUser(data);
+    await getUser();
     setIsCreateCampOpen(false);
+
   };
   const { setIsCreateCampOpen, setIsCreateProfile } = useClient();
   return (

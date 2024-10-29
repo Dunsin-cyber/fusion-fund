@@ -5,7 +5,7 @@ import { useClient } from "@/context";
 import { NearContext } from "@/wallets/near";
 import { FaCheckCircle } from "react-icons/fa";
 import { useAppSelector } from "@/redux/hook";
-import { useGetUser } from "@/functions";
+import { useGetUser, useInitializeContract } from "@/functions";
 
 function Campaigns() {
   const { signedAccountId } = useContext(NearContext);
@@ -13,12 +13,14 @@ function Campaigns() {
   //if completd, save the data on telegram storage
   const user = useAppSelector((state) => state.profile);
   const { getUser } = useGetUser();
+  const {initContract} = useInitializeContract()
   const { setConnectWallet, setIsCreateCampOpen, setIsCreateProfile } =
     useClient();
 
   React.useEffect(() => {
     console.log(signedAccountId);
     getUser();
+    initContract();
   }, [signedAccountId]);
 
   return (

@@ -20,13 +20,11 @@ export const useInitializeContract = () => {
           method: "init",
           args: {},
         });
-        if (newAcc) {
-          console.log(newAcc);
-          toast.success("Initialized Account Successfully");
-          return;
-        }
+
+        console.log(newAcc);
+        console.log("Initialized Account Successfully");
+        return;
       } catch (err) {
-        toast.error(err.message);
         console.log(err);
       } finally {
         setLoading(false);
@@ -48,23 +46,28 @@ export const useIsUserExist = () => {
         setLoading(true);
         const user = await wallet.viewMethod({
           contractId: FusionFundContract,
-          method: "do_i_exist",
+          method: "do_i_exists",
           args: {},
         });
 
         setUserExist(user);
         console.log("user", user);
+        console.log("DO I EXIST", user);
+        if (user) {
+          return;
+        } else {
+          try {
+            await wallet.callMethod({
+              contractId: FusionFundContract,
+              method: "init",
+              args: {},
+            });
 
-        // if (user) {
-        //   router.push("/profile");
-        // } else {
-        //   await wallet.callMethod({
-        //     contractId: FusionFundContract,
-        //     method: "new",
-        //     args: {},
-        //   });
-        //   router.push("/create-profile");
-        // }
+            console.log("CONTRACT INITALIZED");
+          } catch (err) {
+            console.log(err);
+          }
+        }
 
         return;
       } catch (err) {
@@ -82,8 +85,9 @@ export const useCreateUser = () => {
   const [loading, setLoading] = useState(false);
   const { wallet, signedAccountId } = useContext(NearContext);
   const user = useAppSelector((state) => state.profile);
+  const dispatch = useAppDispatch();
 
-  const createUser = async (user: any) => {
+  const createUser = async (query: any) => {
     if (wallet) {
       try {
         setLoading(true);
@@ -92,15 +96,24 @@ export const useCreateUser = () => {
           method: user ? "update_profile" : "create_profile",
           args: user
             ? {
-                new_bio: JSON.stringify(user.bio),
+                new_bio: JSON.stringify(query.bio),
               }
             : {
-                bio: JSON.stringify(user.bio),
-                username: user.username,
+                bio: JSON.stringify(query.bio),
+                username: query.username,
               },
         });
         if (data) {
-          console.log("DATA", data);
+          dispatch(
+            addProfile({
+              username: query.username,
+              bio: query.bio,
+              kyc_verified: false,
+              contributions: [],
+              created_campaigns: [],
+            })
+          );
+          toast.success("Profile added successfully");
           return;
         }
       } catch (err) {
@@ -126,9 +139,9 @@ export const useGetUser = () => {
         const data: User = await wallet.viewMethod({
           contractId: FusionFundContract,
           method: "get_user_profile",
-          args: { user_id: JSON.stringify(signedAccountId) },
+          args: { user_id: signedAccountId },
         });
-        console.log(data);
+        console.log("USER", data);
         if (data) {
           dispatch(addProfile(data));
           return;
@@ -159,13 +172,11 @@ export const useGetAllCampigns = () => {
       });
 
       console.log("FROM ACC", data);
-      // if (data) {
-      //   for (let i = 1; i < data.length, i++; ) {
-      //     // console.log(data[i][1]);
-      //     // dispatch(addCampaign(data[i][1]));
-      //   }
-      //   return;
-      // }
+      if (data) {
+        for (let i = 0; i < data.length; i++) {
+          dispatch(addCampaign({ ...data[i], campaign_id: i }));
+        }
+      }
     } catch (err) {
       console.log("ERROR", err);
       console.log(err);

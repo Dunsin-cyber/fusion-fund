@@ -1,4 +1,5 @@
 export interface Campaign {
+  campaign_id: number;
   creator: string; // Equivalent to `AccountId` in Rust
   total_contributions: number; // Equivalent to `u64`
   contributions: Contribution[]; // Equivalent to `Vec<Contribution>`
