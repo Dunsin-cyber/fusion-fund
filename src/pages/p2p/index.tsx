@@ -8,13 +8,14 @@ import { StarsBackground } from "@/components/ui/stars-background";
 import Background from "@/components/Background";
 import Task from "@/components/Campaign/Task";
 import Campaigns from "@/components/Campaign/Campaigns";
+import Lending from "@/components/Lending";
 
 function Index() {
   const router = useRouter();
-  const [impactOccurred] = useHapticFeedback();
+  // const [impactOccurred] = useHapticFeedback();
   return (
     <Background>
-      <div className="flex flex-col space-y-10">P2P under construction</div>
+      <Lending />
     </Background>
   );
 }

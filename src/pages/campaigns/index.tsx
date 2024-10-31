@@ -15,9 +15,9 @@ function Index() {
   const [impactOccurred] = useHapticFeedback();
   const { getCampaigns } = useGetAllCampigns();
 
-    React.useEffect(() => {
-      getCampaigns();
-    }, []);
+  React.useEffect(() => {
+    getCampaigns();
+  }, []);
 
   return (
     <Background>

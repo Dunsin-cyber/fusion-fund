@@ -14,6 +14,7 @@
   "dependencies": {
     "@chakra-ui/react": "^3.0.1",
     "@emotion/react": "^11.13.3",
+    "@near-js/iframe-rpc": "^0.1.0",
     "@near-js/providers": "^1.0.0",
     "@near-wallet-selector/bitte-wallet": "^8.9.13",
     "@near-wallet-selector/core": "^8.9.13",
@@ -26,6 +27,7 @@
     "@near-wallet-selector/sender": "^8.9.13",
     "@radix-ui/react-label": "^2.1.0",
     "@reduxjs/toolkit": "^2.3.0",
+    "@twa-dev/sdk": "^7.10.1",
     "@vkruglikov/react-telegram-web-app": "^2.1.9",
     "@wagmi/core": "2.13.8",
     "@web3modal/wagmi": "^5.1.10",
@@ -33,6 +35,7 @@
     "bootstrap-icons": "^1.11.3",
     "framer-motion": "^11.11.10",
     "near-api-js": "^4.0.3",
+    "near-fastauth-wallet": "^2.0.5",
     "next": "14.2.13",
     "next-themes": "^0.3.0",
     "react": "^18",

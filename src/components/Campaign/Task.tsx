@@ -5,7 +5,7 @@ import { useClient } from "@/context";
 import { NearContext } from "@/wallets/near";
 import { FaCheckCircle } from "react-icons/fa";
 import { useAppSelector } from "@/redux/hook";
-import { useGetUser, useInitializeContract } from "@/functions";
+import { useGetUser, useInitializeContract, useIsUserExist } from "@/functions";
 import { FaHotjar } from "react-icons/fa";
 import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
 
@@ -18,10 +18,11 @@ function Campaigns() {
   const { initContract } = useInitializeContract();
   const { setConnectWallet, setIsCreateCampOpen, setIsCreateProfile } =
     useClient();
+  const { isUserExist } = useIsUserExist();
 
   React.useEffect(() => {
+    // initContract();
     getUser();
-    initContract();
   }, [signedAccountId]);
 
   return (

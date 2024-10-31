@@ -54,6 +54,7 @@ function Details() {
   const dispatch = useAppDispatch();
   const campaign = useAppSelector((state) => state.campInView);
   const [openDonationDiv, setOpenDonationDiv] = useState(false);
+
   const handleGetCampaignDetails = async () => {
     try {
       if (wallet) {

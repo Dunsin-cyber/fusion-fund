@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import { useHapticFeedback } from "@vkruglikov/react-telegram-web-app";
 import Background from "@/components/Background";
@@ -9,6 +9,7 @@ import MyInfo from "@/components/Profile/MyInfo";
 import { useAppSelector } from "@/redux/hook";
 import { useClient } from "@/context";
 import { useGetUser, useGetMyCampigns } from "@/functions";
+import { NearContext } from "@/wallets/near";
 
 function Index() {
   const router = useRouter();
@@ -16,11 +17,13 @@ function Index() {
   const { getUser } = useGetUser();
   const { getMyCampaigns } = useGetMyCampigns();
   const user = useAppSelector((state) => state.profile);
+  const { wallet, signedAccountId } = useContext(NearContext);
 
   useEffect(() => {
     getUser();
     getMyCampaigns();
-  }, []);
+  }, [signedAccountId]);
+
   return (
     <Background>
       {user ? (

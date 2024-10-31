@@ -25,6 +25,8 @@ const UserContext = React.createContext<{
   isCreateProfile: any;
   campId: number;
   handlesetIsCampDetailOpen: any;
+  setIsLoanModalOpen: any;
+  isLoanModalOpen: boolean;
 }>({
   setDrawerTitle: undefined,
   drawerTitle: "",
@@ -44,6 +46,8 @@ const UserContext = React.createContext<{
   isCreateProfile: false,
   campId: undefined,
   handlesetIsCampDetailOpen: undefined,
+  setIsLoanModalOpen: undefined,
+  isLoanModalOpen: false,
 });
 
 export const useUserContext = () => {
@@ -58,6 +62,8 @@ export const useUserContext = () => {
   const [connectWallet, setConnectWallet] = useState(false);
   const [isCreateProfile, setIsCreateProfile] = useState(false);
   const [campId, setCampId] = useState(0);
+  const [isLoanModalOpen, setIsLoanModalOpen] = useState(false);
+
   const closeDrawer = () => {
     setDrawerTitle("");
     setDrawerBody("");
@@ -94,6 +100,8 @@ export const useUserContext = () => {
     isCreateProfile,
     campId,
     handlesetIsCampDetailOpen,
+    isLoanModalOpen,
+    setIsLoanModalOpen,
   };
 };
 

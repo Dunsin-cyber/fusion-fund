@@ -13,7 +13,7 @@ const FooterNav = () => {
   const navItems = [
     { id: "/campaigns", label: "Home", icon: <AiFillHome /> },
     { id: "/p2p", label: "P2P", icon: <GiBodySwapping /> },
-    { id: "/seasons", label: "Seasons", icon: <AiFillCrown /> },
+    { id: "/loans", label: "My Loans", icon: <AiFillCrown /> },
     { id: "/profile", label: "Profile", icon: <AiFillStar /> },
   ];
 

@@ -11,6 +11,23 @@ export function Header() {
   const campaigns: any[] = useAppSelector((state) => state.campaigns);
   const { handlesetIsCampDetailOpen } = useClient();
 
+  const fetchResponse = async () => {
+    try {
+      const response = await fetch("/api/openai", {
+        method: "POST",
+        body: JSON.stringify({ query: searchQuery }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        console.log(data.answer);
+      } else {
+        console.error(data.error);
+      }
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
+
   const placeholders = [
     "What's the donation code?",
     "Easily donate just by putting in the code?",
@@ -26,13 +43,15 @@ export function Header() {
     e.preventDefault();
     if (searchQuery.length === 5) {
       const data = campaigns?.filter(
-        (camp: Campaign) => camp.campaign_code === searchQuery
+        (camp: Campaign) => camp?.campaign_code === searchQuery
       );
       if (data.length < 1) {
         toast.success(`No Active Campaign with ${searchQuery} `);
+        return;
       }
-      handlesetIsCampDetailOpen(data[0].campaign_id, true);
+      handlesetIsCampDetailOpen(data[0]?.campaign_id, true);
     } else {
+      fetchResponse();
       toast.success(`I will Ask PT`);
     }
     console.log(searchQuery);

@@ -1,6 +1,8 @@
 const contractPerNetwork = {
   mainnet: "hello.near-examples.near",
-  testnet: "fusionfund.testnet",
+  testnet: "profuse-harbor.testnet",
+  // testnet: "fusionfund2.testnet",
+  // testnet: "dfinisher.testnet",
 };
 
 // Chains for EVM Wallets

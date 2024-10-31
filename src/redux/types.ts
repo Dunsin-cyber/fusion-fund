@@ -17,6 +17,25 @@ export interface Contribution {
   amount: number;
 }
 
+export interface LoanRequest {
+  id: number;
+  borrower: string;
+  amount: number;
+  interest_rate: number; // interest rate as a percentage
+  duration: string; // loan duration in seconds
+  fulfilled: boolean;
+}
+
+export interface Loan {
+  loan_id: number;
+  borrower: string;
+  lender: string;
+  amount: number;
+  interest_rate: number;
+  duration: number;
+  start_time: number;
+  repaid: boolean;
+}
 export interface BuildAccount {
   id_hash: string;
   creator: string;

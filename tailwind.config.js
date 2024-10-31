@@ -70,6 +70,14 @@ module.exports = {
         gradient: "conic-gradient(from 0deg, #ff7eb3, #ff758c, #ff6f61)",
       },
       keyframes: {
+        shimmer: {
+          from: {
+            backgroundPosition: "0 0",
+          },
+          to: {
+            backgroundPosition: "-200% 0",
+          },
+        },
         scroll: {
           to: {
             transform: "translate(calc(-50% - 0.5rem))",
@@ -90,6 +98,7 @@ module.exports = {
         },
       },
       animation: {
+        shimmer: "shimmer 2s linear infinite",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         beep: "beep 1s ease-in-out infinite",
