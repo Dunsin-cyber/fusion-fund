@@ -7,15 +7,28 @@ interface DrawerParam {
 }
 
 const welcome = `<div>
-  <h2 style="font-weight: bold; color: #1d4ed8;">Fusion Fund: Easy, Wallet-Free Crowdfunding & Lending</h2>
-  <p>
-    With Fusion Fund, you can raise funds and support projects right within Telegram — no app downloads or wallet setups needed. Our <strong>Paymaster</strong> integration simplifies transactions, so you don’t need to hold crypto or sign transactions yourself, making it seamless for anyone to get started.
-  </p>
-  <p>
-    Enjoy <strong>P2P lending and borrowing</strong> with ease, alongside AI assistance guiding you at each step to optimize your experience.
-  </p>
-  <p style="margin-top: 1em; font-style: italic;">Empowering finances, made accessible for everyone.</p>
-</div>`;
+  <h3 style="font-weight: bold; color: #1d4ed8;">Steps to Raise Money on Fusion Fund</h3>
+  <ol style="padding-left: 1.2em;">
+    <li>Login to Fusion Fund.</li>
+    <li>Set up your profile.</li>
+    <li>Create your campaign and set a funding goal.</li>
+    <li>Share your unique campaign code with friends.</li>
+    <li>Return after the campaign deadline to withdraw your funds.</li>
+  </ol>
+  <p style="margin-top: 1em; font-style: italic;">It&rsquo;s that easy to fund your goals with Fusion Fund!</p>
+</div>
+>
+`;
+// const welcome = `<div>
+//   <h2 style="font-weight: bold; color: #1d4ed8;">Fusion Fund: Easy, Wallet-Free Crowdfunding & Lending</h2>
+//   <p>
+//     With Fusion Fund, you can raise funds and support projects right within Telegram — no app downloads or wallet setups needed. Our <strong>Paymaster</strong> integration simplifies transactions, so you don’t need to hold crypto or sign transactions yourself, making it seamless for anyone to get started.
+//   </p>
+//   <p>
+//     Enjoy <strong>P2P lending and borrowing</strong> with ease, alongside AI assistance guiding you at each step to optimize your experience.
+//   </p>
+//   <p style="margin-top: 1em; font-style: italic;">Empowering finances, made accessible for everyone.</p>
+// </div>`;
 const UserContext = React.createContext<{
   setDrawerTitle: any;
   drawerTitle: string;
