@@ -1,9 +1,9 @@
 import { setupFastAuthWallet } from "near-fastauth-wallet";
 import { setupWalletSelector } from "@near-wallet-selector/core";
-
+import { NetworkId } from "@/config";
 // Initialize wallet selector
 const selector = setupWalletSelector({
-  network: networkId,
+  network: NetworkId,
   modules: [
     setupFastAuthWallet({
       relayerUrl: "$RELAYER_URL",
