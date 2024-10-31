@@ -27,6 +27,10 @@ const UserContext = React.createContext<{
   handlesetIsCampDetailOpen: any;
   setIsLoanModalOpen: any;
   isLoanModalOpen: boolean;
+  isAssistantOpen: boolean;
+  setIsAssistantOpen: any;
+  assistantContent: string;
+  setAssistantContent: any;
 }>({
   setDrawerTitle: undefined,
   drawerTitle: "",
@@ -48,6 +52,11 @@ const UserContext = React.createContext<{
   handlesetIsCampDetailOpen: undefined,
   setIsLoanModalOpen: undefined,
   isLoanModalOpen: false,
+  isAssistantOpen: false,
+  setIsAssistantOpen: undefined,
+  assistantContent:
+    "<p>Hello,Champ!</p><div>i'm you Ai displayer, just search anything in the searchbar</div>",
+  setAssistantContent: undefined,
 });
 
 export const useUserContext = () => {
@@ -63,7 +72,10 @@ export const useUserContext = () => {
   const [isCreateProfile, setIsCreateProfile] = useState(false);
   const [campId, setCampId] = useState(0);
   const [isLoanModalOpen, setIsLoanModalOpen] = useState(false);
-
+  const [isAssistantOpen, setIsAssistantOpen] = useState(false);
+  const [assistantContent, setAssistantContent] = useState(
+    "<p>Hello,Champ!</p><div>i'm you Ai displayer, just search anything in the searchbar</div>"
+  );
   const closeDrawer = () => {
     setDrawerTitle("");
     setDrawerBody("");
@@ -102,6 +114,10 @@ export const useUserContext = () => {
     handlesetIsCampDetailOpen,
     isLoanModalOpen,
     setIsLoanModalOpen,
+    isAssistantOpen,
+    setIsAssistantOpen,
+    assistantContent,
+    setAssistantContent,
   };
 };
 

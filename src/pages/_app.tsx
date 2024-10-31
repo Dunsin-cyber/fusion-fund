@@ -4,10 +4,11 @@ import { Provider } from "@/components/ui/provider";
 import { Wallet, NearContext } from "@/wallets/near";
 import { NetworkId, FusionFundContract } from "@/config";
 import Script from "next/script";
-import { UserContextProvider } from "@/context";
+import { useClient, UserContextProvider } from "@/context";
 import { Toaster } from "react-hot-toast";
 import { Provider as ReduxProvider } from "react-redux";
 import store from "@/redux/store";
+import FloatingOverlay from "@/components/FloatingOverlay";
 
 const wallet = new Wallet({
   networkId: NetworkId,
@@ -16,7 +17,7 @@ const wallet = new Wallet({
 
 export default function MyApp({ Component, pageProps }) {
   const [signedAccountId, setSignedAccountId] = useState("");
-
+  const { assistantContent } = useClient();
   useEffect(() => {
     wallet.startUp(setSignedAccountId);
   }, []);
@@ -49,7 +50,9 @@ export default function MyApp({ Component, pageProps }) {
                 },
               }}
             />
+
             <Component {...pageProps} />
+            <FloatingOverlay content={assistantContent} />
           </Provider>
         </NearContext.Provider>
       </ReduxProvider>
