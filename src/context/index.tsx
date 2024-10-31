@@ -7,17 +7,14 @@ interface DrawerParam {
 }
 
 const welcome = `<div>
-  <h3 style="font-weight: bold; color: #1d4ed8;">Steps to Raise Money on Fusion Fund</h3>
-  <ol style="padding-left: 1.2em;">
-    <li>Login to Fusion Fund.</li>
-    <li>Set up your profile.</li>
-    <li>Create your campaign and set a funding goal.</li>
-    <li>Share your unique campaign code with friends.</li>
-    <li>Return after the campaign deadline to withdraw your funds.</li>
-  </ol>
-  <p style="margin-top: 1em; font-style: italic;">It&rsquo;s that easy to fund your goals with Fusion Fund!</p>
+  <p>
+    To experience full chain abstraction, we&rsquo;ve integrated the <strong>in-app Bitte wallet</strong>. Use it for a seamless experience where you can access the benefits of the blockchain without the need for complex setups!
+  </p>
+  <p style="margin-top: 1em; font-style: italic; color: #4b5563;">
+    Simplify your transactions and enjoy a hassle-free journey on Fusion Fund!
+  </p>
 </div>
->
+
 `;
 // const welcome = `<div>
 //   <h2 style="font-weight: bold; color: #1d4ed8;">Fusion Fund: Easy, Wallet-Free Crowdfunding & Lending</h2>
