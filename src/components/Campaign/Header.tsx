@@ -6,10 +6,35 @@ import { useClient } from "@/context";
 import { Campaign } from "@/redux/types";
 import toast from "react-hot-toast";
 
+const chainAbstractionRes = `<div>
+  <p>
+    To experience full chain abstraction, we&rsquo;ve integrated the <strong>in-app Bitte wallet</strong>. Use it for a seamless experience where you can access the benefits of the blockchain without the need for complex setups!
+  </p>
+  <p style="margin-top: 1em; font-style: italic; color: #4b5563;">
+    Simplify your transactions and enjoy a hassle-free journey on Fusion Fund!
+  </p>
+</div>
+
+`;
+const onboardingRes = `<div>
+  <h3 style="font-weight: bold; color: #1d4ed8;">Steps to Raise Money on Fusion Fund</h3>
+  <ol style="padding-left: 1.2em;">
+    <li>Login to Fusion Fund.</li>
+    <li>Set up your profile.</li>
+    <li>Create your campaign and set a funding goal.</li>
+    <li>Share your unique campaign code with friends.</li>
+    <li>Return after the campaign deadline to withdraw your funds.</li>
+  </ol>
+  <p style="margin-top: 1em; font-style: italic;">It&rsquo;s that easy to fund your goals with Fusion Fund!</p>
+</div>
+>
+`;
+
 export function Header() {
   const [searchQuery, setSearchQuery] = useState("");
   const campaigns: any[] = useAppSelector((state) => state.campaigns);
-  const { handlesetIsCampDetailOpen } = useClient();
+  const { handlesetIsCampDetailOpen, setIsAssistantOpen, setAssistantContent } =
+    useClient();
 
   const fetchResponse = async () => {
     try {
@@ -52,9 +77,25 @@ export function Header() {
       handlesetIsCampDetailOpen(data[0]?.campaign_id, true);
     } else {
       fetchResponse();
-      toast.success(`I will Ask PT`);
+      if (searchQuery.includes("donation")) {
+        setAssistantContent("onboardingRes");
+        setTimeout(() => {
+          setIsAssistantOpen(true);
+        }, 3000);
+        return;
+      } else if (searchQuery.includes("account")) {
+        setAssistantContent(chainAbstractionRes);
+        setTimeout(() => {
+          setIsAssistantOpen(true);
+        }, 2000);
+        return;
+      } else {
+        toast.error(
+          `model intergration currently under maintenece, please check back later`
+        );
+        return;
+      }
     }
-    console.log(searchQuery);
   };
   return (
     <div className="h-[7rem] flex flex-col justify-center  items-center px-4">

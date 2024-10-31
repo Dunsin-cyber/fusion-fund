@@ -231,7 +231,7 @@ function Details() {
       {/* donation progress bar and input field */}
       {openDonationDiv && (
         <div className="space-y-3">
-          <DonateSection onDonate={handleDonate} />
+          <DonateSection campaign={campaign} onDonate={handleDonate} />
         </div>
       )}
       {/* Donate Button */}
@@ -256,7 +256,7 @@ function Details() {
   );
 }
 
-function DonateSection({ onDonate }) {
+function DonateSection({ campaign, onDonate }) {
   const [donationAmount, setDonationAmount] = useState("");
   const { wallet, signedAccountId } = React.useContext(NearContext);
   const [nearBalance, setNearBalance] = useState(0);
@@ -309,7 +309,9 @@ function DonateSection({ onDonate }) {
       </div>
 
       {/* Progress Bar */}
-      <ProgressRoot value={20}>
+      <ProgressRoot
+        value={(campaign.total_contributions / campaign.amount_required) * 100}
+      >
         <ProgressBar />
       </ProgressRoot>
 

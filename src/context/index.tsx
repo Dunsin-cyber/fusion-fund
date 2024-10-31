@@ -6,6 +6,16 @@ interface DrawerParam {
   body: string;
 }
 
+const welcome = `<div>
+  <h2 style="font-weight: bold; color: #1d4ed8;">Fusion Fund: Easy, Wallet-Free Crowdfunding & Lending</h2>
+  <p>
+    With Fusion Fund, you can raise funds and support projects right within Telegram — no app downloads or wallet setups needed. Our <strong>Paymaster</strong> integration simplifies transactions, so you don’t need to hold crypto or sign transactions yourself, making it seamless for anyone to get started.
+  </p>
+  <p>
+    Enjoy <strong>P2P lending and borrowing</strong> with ease, alongside AI assistance guiding you at each step to optimize your experience.
+  </p>
+  <p style="margin-top: 1em; font-style: italic;">Empowering finances, made accessible for everyone.</p>
+</div>`;
 const UserContext = React.createContext<{
   setDrawerTitle: any;
   drawerTitle: string;
@@ -54,8 +64,7 @@ const UserContext = React.createContext<{
   isLoanModalOpen: false,
   isAssistantOpen: false,
   setIsAssistantOpen: undefined,
-  assistantContent:
-    "<p>Hello,Champ!</p><div>i'm you Ai displayer, just search anything in the searchbar</div>",
+  assistantContent: welcome,
   setAssistantContent: undefined,
 });
 
@@ -73,9 +82,8 @@ export const useUserContext = () => {
   const [campId, setCampId] = useState(0);
   const [isLoanModalOpen, setIsLoanModalOpen] = useState(false);
   const [isAssistantOpen, setIsAssistantOpen] = useState(false);
-  const [assistantContent, setAssistantContent] = useState(
-    "<p>Hello,Champ!</p><div>i'm you Ai displayer, just search anything in the searchbar</div>"
-  );
+  const [assistantContent, setAssistantContent] = useState("");
+
   const closeDrawer = () => {
     setDrawerTitle("");
     setDrawerBody("");

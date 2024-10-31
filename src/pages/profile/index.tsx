@@ -10,6 +10,7 @@ import { useAppSelector } from "@/redux/hook";
 import { useClient } from "@/context";
 import { useGetUser, useGetMyCampigns } from "@/functions";
 import { NearContext } from "@/wallets/near";
+import { FaSignOutAlt } from "react-icons/fa";
 
 function Index() {
   const router = useRouter();
@@ -44,6 +45,14 @@ export default Index;
 
 function ProfileSetupCard() {
   const { setIsCreateProfile } = useClient();
+  const { wallet } = React.useContext(NearContext);
+  const router = useRouter();
+
+  const handleLogOut = () => {
+    wallet.signOut();
+    router.push("/");
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen">
       <div className="w-full max-w-md p-8 rounded-lg shadow-lg text-center space-y-6">
@@ -58,6 +67,14 @@ function ProfileSetupCard() {
           className="w-full h-12 mt-4 inline-flex items-center justify-center rounded-full bg-gradient-to-r from-gradient-start via-gradient-middle to-gradient-end text-white text-lg font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-400 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           Set Up Profile
+        </button>
+        {/* Logout Button */}
+        <button
+          onClick={handleLogOut}
+          className="flex items-center justify-center w-full bg-red-900 hover:bg-red-700 text-white py-2 rounded-lg transition duration-200"
+        >
+          <FaSignOutAlt className="mr-2" />
+          Logout
         </button>
       </div>
     </div>
