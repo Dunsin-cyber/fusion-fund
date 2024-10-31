@@ -1,7 +1,7 @@
 const contractPerNetwork = {
   mainnet: "hello.near-examples.near",
-  testnet: "tearful-cap.testnet",
-  // testnet: "fusionfund2.testnet",
+  // testnet: "tearful-cap.testnet",
+  testnet: "fusionfund2.testnet",
   // testnet: "dfinisher.testnet",
 };
 
