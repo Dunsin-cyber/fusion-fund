@@ -242,7 +242,7 @@ const LoanPage = () => {
       <div className="space-y-4">
         {allLoansReq?.map((loan) => (
           <div
-            key={loan.d}
+            key={loan.id}
             className="bg-gray-900 shadow-lg rounded-lg p-4 flex items-center justify-between"
             onClick={() => handleLoanClick(loan)}
           >
