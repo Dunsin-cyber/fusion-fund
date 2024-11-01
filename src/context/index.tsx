@@ -6,26 +6,26 @@ interface DrawerParam {
   body: string;
 }
 
-const welcome = `<div>
-  <p>
-    To experience full chain abstraction, we&rsquo;ve integrated the <strong>in-app Bitte wallet</strong>. Use it for a seamless experience where you can access the benefits of the blockchain without the need for complex setups!
-  </p>
-  <p style="margin-top: 1em; font-style: italic; color: #4b5563;">
-    Simplify your transactions and enjoy a hassle-free journey on Fusion Fund!
-  </p>
-</div>
-
-`;
 // const welcome = `<div>
-//   <h2 style="font-weight: bold; color: #1d4ed8;">Fusion Fund: Easy, Wallet-Free Crowdfunding & Lending</h2>
 //   <p>
-//     With Fusion Fund, you can raise funds and support projects right within Telegram — no app downloads or wallet setups needed. Our <strong>Paymaster</strong> integration simplifies transactions, so you don’t need to hold crypto or sign transactions yourself, making it seamless for anyone to get started.
+//     To experience full chain abstraction, we&rsquo;ve integrated the <strong>in-app Bitte wallet</strong>. Use it for a seamless experience where you can access the benefits of the blockchain without the need for complex setups!
 //   </p>
-//   <p>
-//     Enjoy <strong>P2P lending and borrowing</strong> with ease, alongside AI assistance guiding you at each step to optimize your experience.
+//   <p style="margin-top: 1em; font-style: italic; color: #4b5563;">
+//     Simplify your transactions and enjoy a hassle-free journey on Fusion Fund!
 //   </p>
-//   <p style="margin-top: 1em; font-style: italic;">Empowering finances, made accessible for everyone.</p>
-// </div>`;
+// </div>
+
+// `;
+const welcome = `<div>
+  <h2 style="font-weight: bold; color: #1d4ed8;">Fusion Fund: Easy, Wallet-Free Crowdfunding & Lending</h2>
+  <p>
+    With Fusion Fund, you can raise funds and support projects right within Telegram — no app downloads or wallet setups needed. Our <strong>Paymaster</strong> integration simplifies transactions, so you don’t need to hold crypto or sign transactions yourself, making it seamless for anyone to get started.
+  </p>
+  <p>
+    Enjoy <strong>P2P lending and borrowing</strong> with ease, alongside AI assistance guiding you at each step to optimize your experience.
+  </p>
+  <p style="margin-top: 1em; font-style: italic;">Empowering finances, made accessible for everyone.</p>
+</div>`;
 const UserContext = React.createContext<{
   setDrawerTitle: any;
   drawerTitle: string;
