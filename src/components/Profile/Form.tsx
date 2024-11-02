@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import { Spinner } from "@chakra-ui/react";
 import { MdOutlineCancel } from "react-icons/md";
 import { useGetUser } from "@/functions";
+import { useGetAllCampigns } from "@/functions";
 
 // Example usage:
 // const title = "Example Title";
@@ -22,6 +23,7 @@ export function SignupFormDemo() {
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
   const { getUser } = useGetUser();
+  const { getCampaigns } = useGetAllCampigns();
 
   const router = useRouter();
   const {
@@ -67,6 +69,7 @@ export function SignupFormDemo() {
         });
 
         await getUser();
+        await getCampaigns();
         setIsCreateCampOpen(false);
         toast.success("campaign created");
       } catch (err) {
